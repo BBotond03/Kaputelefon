@@ -1178,6 +1178,9 @@ extern __bank0 __bit __timeout;
 
 
 
+
+
+
 #pragma config FOSC = HS
 #pragma config WDTE = OFF
 #pragma config PWRTE = ON
@@ -1186,8 +1189,62 @@ extern __bank0 __bit __timeout;
 #pragma config LVP = OFF
 #pragma config CPD = OFF
 #pragma config CP = OFF
-# 25 "main.c"
+# 26 "main.c"
+int pinPad[12];
+int index = 0;
+int outputValue;
+
+void beep() {
+    PORTBbits.RB1 = 1;
+    _delay((unsigned long)((100)*(20000000/4000.0)));
+    PORTBbits.RB1 = 0;
+    _delay((unsigned long)((100)*(20000000/4000.0)));
+}
+
+void __attribute__((picinterrupt(("")))) isr() {
+    if (TMR1IF) {
+        PORTBbits.RB0 = PORTAbits.RA1;
+        if(PORTAbits.RA1 = 1)
+            beep();
+        TMR1IF = 0;
+        TMR1 = 0;
+
+        pinPad[index] = PORTAbits.RA1;
+
+        index++;
+
+        if (index >= 12) {
+            outputValue = 0;
+            for (int i = 0; i < 12; i++) {
+                outputValue |= (pinPad[i] << i);
+            }
+            for (int i = 0; i < 12; i++) {
+                if(pinPad[i] == 1)
+                {
+                    PORTBbits.RB0 = !PORTBbits.RB0;
+                    _delay((unsigned long)((300)*(20000000/4000.0)));
+                    PORTBbits.RB0 = !PORTBbits.RB0;
+                }
+
+            }
+            index = 0;
+        }
+    }
+}
+
+void setup_timer1()
+{
+    T1CONbits.TMR1CS = 0;
+    T1CONbits.T1CKPS = 3;
+    T1CONbits.nT1SYNC = 1;
+    TMR1H = 0x00;
+    TMR1L = 0x00;
+    T1CONbits.TMR1ON = 1;
+
+}
+
 void initialize_pins() {
+    CMCON = 0x07;
     TRISBbits.TRISB0 = 0;
     TRISAbits.TRISA3 = 1;
     TRISBbits.TRISB2 = 1;
@@ -1195,28 +1252,22 @@ void initialize_pins() {
     TRISAbits.TRISA0 = 0;
     TRISAbits.TRISA1 = 1;
     TRISAbits.TRISA2 = 1;
+    PORTAbits.RA3 = 1;
+    PORTBbits.RB2 = 1;
+
 
 
 }
-# 44 "main.c"
-int open;
 
+
+int open;
 
 void main() {
     initialize_pins();
 
+
+
+    PORTBbits.RB0 = 0;
     while (1) {
-        if (PORTAbits.RA2 == 0) {
-        _delay((unsigned long)((50)*(20000000/4000.0)));
-        }
-        if (PORTAbits.RA2 == 1) {
-            PORTBbits.RB0 = !PORTBbits.RB0;
-            _delay((unsigned long)((50)*(20000000/4000.0)));
-        }
-        _delay((unsigned long)((50)*(20000000/4000.0)));
-
-
-
-
     }
 }
