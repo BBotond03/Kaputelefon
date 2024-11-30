@@ -1189,12 +1189,45 @@ extern __bank0 __bit __timeout;
 #pragma config LVP = OFF
 #pragma config CPD = OFF
 #pragma config CP = OFF
-# 31 "main.c"
+# 30 "main.c"
 int sensor_index = 0;
 int output_index = 0;
 int output_pinpad[7];
 int input_pinpad[7];
 int USER_INPUT[7];
+
+void initialize_pins() {
+    CMCON = 0x07;
+    TRISBbits.TRISB0 = 0;
+    TRISAbits.TRISA3 = 0;
+    TRISBbits.TRISB2 = 0;
+    TRISBbits.TRISB1 = 0;
+
+    TRISAbits.TRISA1 = 1;
+    TRISAbits.TRISA2 = 1;
+    TRISBbits.TRISB7 = 0;
+    TRISBbits.TRISB6 = 0;
+    PORTAbits.RA3 = 1;
+    for(int i =0; i<7; i++)
+    {
+        if(i == 0)
+        {
+            output_pinpad[i] = 1;
+            input_pinpad[i] = 1;
+
+        }
+        else
+        {
+            output_pinpad[i] = 1;
+            input_pinpad[i] = 0;
+        }
+    }
+    INTCONbits.GIE = 1;
+    INTCONbits.PEIE = 1;
+
+}
+
+
 
 void delay_us(int time)
 {
@@ -1231,107 +1264,71 @@ void cycleOutput(int list[], int size) {
     int nextIndex = (currentIndex + 1) % size;
     list[nextIndex] = 1;
 }
-void decodeValue(int code[])
+int decodeValue(int code[])
 {
     for(int i =0; i<7; i++)
     {
-        if(code[i] == 0)
+        if(code[i] == 1)
         {
-
-
-        }
-    }
-}
-# 114 "main.c"
-void setup_timer1()
-{
-    T1CONbits.TMR1CS = 0;
-    T1CONbits.T1CKPS = 3;
-    T1CONbits.nT1SYNC = 1;
-    TMR1H = 0x00;
-    TMR1L = 0x00;
-    T1CONbits.TMR1ON = 1;
-
-}
-
-void initialize_pins() {
-    CMCON = 0x07;
-    TRISBbits.TRISB0 = 0;
-    TRISAbits.TRISA3 = 1;
-    TRISBbits.TRISB2 = 1;
-    TRISBbits.TRISB1 = 0;
-    TRISAbits.TRISA0 = 0;
-    TRISAbits.TRISA1 = 1;
-    TRISAbits.TRISA2 = 1;
-    TRISBbits.TRISB7 = 0;
-    TRISBbits.TRISB6 = 0;
-    PORTAbits.RA3 = 1;
-    for(int i =0; i<7; i++)
-    {
-        if(i == 0)
-        {
-            output_pinpad[i] = 1;
-            input_pinpad[i] = 1;
+            return 1;
 
         }
         else
-        {
-            output_pinpad[i] = 1;
-            input_pinpad[i] = 0;
-        }
+            return 0;
     }
-    INTCONbits.GIE = 1;
-    INTCONbits.PEIE = 1;
-
 }
-
-
-int open;
+# 159 "main.c"
+int open = 1;
 
 void main() {
     initialize_pins();
-    setup_timer1();
+
+    _delay((unsigned long)((10)*(20000000/4000.0)));
+    PORTBbits.RB2 = 1;
 
     PORTBbits.RB0 = 0;
-
     while (1) {
 
         if (PORTAbits.RA2 == 0) {
             beep(1000);
+
             _delay((unsigned long)((50)*(20000000/4000.0)));
 
-        }
-        PORTBbits.RB6 = 1;
-        _delay((unsigned long)((50)*(20000000/4000.0)));
 
-        if (sensor_index < 2 * 7) {
+        }
+
+        PORTBbits.RB6 = 1;
+        if(output_index< 7)
+        {
+
             if (sensor_index < 7) {
-                PORTBbits.RB2 = 0;
                 PORTBbits.RB7 = input_pinpad[sensor_index];
                 sensor_index++;
-                if(PORTBbits.RB7 == 0)
-                {
 
-                }
-                if(PORTBbits.RB7 == 1)
-                {
-                   PORTBbits.RB0=!PORTBbits.RB0;
-                    _delay((unsigned long)((50)*(20000000/4000.0)));
-                    PORTBbits.RB0=!PORTBbits.RB0;
-                }
-            } else {
-                PORTBbits.RB2 = 1;
-                PORTBbits.RB7 = input_pinpad[sensor_index - 7];
-                output_pinpad[sensor_index - 7] = PORTAbits.RA1;
-                sensor_index++;
             }
-        } else {
-            sensor_index = 0;
-            decodeValue(output_pinpad);
-            cycleOutput(input_pinpad, 7);
+           else
+            {
+
+                output_pinpad[output_index] = PORTAbits.RA1;
+                sensor_index = 0;
+                cycleOutput(output_pinpad, 7);
+                output_index++;
+                PORTBbits.RB7 = 0;
+            }
+        }
+
+        else
+        {
+            open = decodeValue(output_pinpad);
+            output_index = 0;
         }
         PORTBbits.RB6 = 0;
-        _delay((unsigned long)((50)*(20000000/4000.0)));
+
+        if (open == 1) {
+            PORTBbits.RB0 = 0;
+        } else {
+            PORTBbits.RB0 = 1;
+}
 
 
 

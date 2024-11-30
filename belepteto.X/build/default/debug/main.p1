@@ -271,8 +271,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 52:             output_pinpad[i] = 1;
 [e = *U + &U _output_pinpad * -> -> _i `ui `ux -> -> # *U &U _output_pinpad `ui `ux -> 1 `i ]
 "53
-[; ;main.c: 53:             input_pinpad[i] = 1;
-[e = *U + &U _input_pinpad * -> -> _i `ui `ux -> -> # *U &U _input_pinpad `ui `ux -> 1 `i ]
+[; ;main.c: 53:             input_pinpad[i] = 0;
+[e = *U + &U _input_pinpad * -> -> _i `ui `ux -> -> # *U &U _input_pinpad `ui `ux -> 0 `i ]
 "55
 [; ;main.c: 55:         }
 }
@@ -287,8 +287,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 58:             output_pinpad[i] = 1;
 [e = *U + &U _output_pinpad * -> -> _i `ui `ux -> -> # *U &U _output_pinpad `ui `ux -> 1 `i ]
 "59
-[; ;main.c: 59:             input_pinpad[i] = 0;
-[e = *U + &U _input_pinpad * -> -> _i `ui `ux -> -> # *U &U _input_pinpad `ui `ux -> 0 `i ]
+[; ;main.c: 59:             input_pinpad[i] = 1;
+[e = *U + &U _input_pinpad * -> -> _i `ui `ux -> -> # *U &U _input_pinpad `ui `ux -> 1 `i ]
 "60
 [; ;main.c: 60:         }
 }
@@ -422,15 +422,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U 72 ]
 {
 "94
-[; ;main.c: 94:         if (list[i] == 1) {
-[e $ ! == *U + _list * -> _i `x -> -> # *U _list `i `x -> 1 `i 76  ]
+[; ;main.c: 94:         if (list[i] == 0) {
+[e $ ! == *U + _list * -> _i `x -> -> # *U _list `i `x -> 0 `i 76  ]
 {
 "95
 [; ;main.c: 95:             currentIndex = i;
 [e = _currentIndex _i ]
 "96
-[; ;main.c: 96:             list[i] = 0;
-[e = *U + _list * -> _i `x -> -> # *U _list `i `x -> 0 `i ]
+[; ;main.c: 96:             list[i] = 1;
+[e = *U + _list * -> _i `x -> -> # *U _list `i `x -> 1 `i ]
 "97
 [; ;main.c: 97:             break;
 [e $U 73  ]
@@ -567,94 +567,101 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 180:         {
 {
 "182
-[; ;main.c: 182:             if (sensor_index < 7) {
-[e $ ! < _sensor_index -> 7 `i 89  ]
-{
+[; ;main.c: 182:             if(sensor_index = 0)
+[e $ ! != = _sensor_index -> 0 `i -> 0 `i 89  ]
 "183
-[; ;main.c: 183:                 PORTBbits.RB7 = input_pinpad[sensor_index];
-[e = . . _PORTBbits 0 7 -> *U + &U _input_pinpad * -> -> _sensor_index `ui `ux -> -> # *U &U _input_pinpad `ui `ux `uc ]
+[; ;main.c: 183:                 PORTBbits.RB7 = 0;
+[e = . . _PORTBbits 0 7 -> -> 0 `i `uc ]
+[e :U 89 ]
 "184
 [; ;main.c: 184:                 sensor_index++;
 [e ++ _sensor_index -> 1 `i ]
 "186
-[; ;main.c: 186:             }
-}
-[e $U 90  ]
-"187
-[; ;main.c: 187:            else
-[e :U 89 ]
-"188
-[; ;main.c: 188:             {
+[; ;main.c: 186:             if (sensor_index < 7) {
+[e $ ! < _sensor_index -> 7 `i 90  ]
 {
+"187
+[; ;main.c: 187:                 PORTBbits.RB7 = input_pinpad[sensor_index];
+[e = . . _PORTBbits 0 7 -> *U + &U _input_pinpad * -> -> _sensor_index `ui `ux -> -> # *U &U _input_pinpad `ui `ux `uc ]
+"188
+[; ;main.c: 188:                 sensor_index++;
+[e ++ _sensor_index -> 1 `i ]
 "190
-[; ;main.c: 190:                 output_pinpad[output_index] = PORTAbits.RA1;
-[e = *U + &U _output_pinpad * -> -> _output_index `ui `ux -> -> # *U &U _output_pinpad `ui `ux -> . . _PORTAbits 0 1 `i ]
-"191
-[; ;main.c: 191:                 sensor_index = 0;
-[e = _sensor_index -> 0 `i ]
-"192
-[; ;main.c: 192:                 cycleOutput(output_pinpad, 7);
-[e ( _cycleOutput (2 , &U _output_pinpad -> 7 `i ]
-"193
-[; ;main.c: 193:                 output_index++;
-[e ++ _output_index -> 1 `i ]
-"194
-[; ;main.c: 194:                 PORTBbits.RB7 = 0;
-[e = . . _PORTBbits 0 7 -> -> 0 `i `uc ]
-"195
-[; ;main.c: 195:             }
-}
-[e :U 90 ]
-"196
-[; ;main.c: 196:         }
+[; ;main.c: 190:             }
 }
 [e $U 91  ]
-"198
-[; ;main.c: 198:         else
-[e :U 88 ]
-"199
-[; ;main.c: 199:         {
+"191
+[; ;main.c: 191:            else
+[e :U 90 ]
+"192
+[; ;main.c: 192:             {
 {
-"200
-[; ;main.c: 200:             open = decodeValue(output_pinpad);
-[e = _open ( _decodeValue (1 &U _output_pinpad ]
-"201
-[; ;main.c: 201:             output_index = 0;
-[e = _output_index -> 0 `i ]
-"202
-[; ;main.c: 202:         }
+"193
+[; ;main.c: 193:                 output_pinpad[output_index] = PORTAbits.RA1;
+[e = *U + &U _output_pinpad * -> -> _output_index `ui `ux -> -> # *U &U _output_pinpad `ui `ux -> . . _PORTAbits 0 1 `i ]
+"194
+[; ;main.c: 194:                 sensor_index = 0;
+[e = _sensor_index -> 0 `i ]
+"195
+[; ;main.c: 195:                 cycleOutput(output_pinpad, 7);
+[e ( _cycleOutput (2 , &U _output_pinpad -> 7 `i ]
+"196
+[; ;main.c: 196:                 output_index++;
+[e ++ _output_index -> 1 `i ]
+"198
+[; ;main.c: 198:             }
 }
 [e :U 91 ]
+"199
+[; ;main.c: 199:         }
+}
+[e $U 92  ]
+"201
+[; ;main.c: 201:         else
+[e :U 88 ]
+"202
+[; ;main.c: 202:         {
+{
 "203
-[; ;main.c: 203:         PORTBbits.RB6 = 0;
-[e = . . _PORTBbits 0 6 -> -> 0 `i `uc ]
+[; ;main.c: 203:             open = decodeValue(output_pinpad);
+[e = _open ( _decodeValue (1 &U _output_pinpad ]
+"204
+[; ;main.c: 204:             output_index = 0;
+[e = _output_index -> 0 `i ]
 "205
-[; ;main.c: 205:         if (open == 1) {
-[e $ ! == _open -> 1 `i 92  ]
-{
-"206
-[; ;main.c: 206:             PORTBbits.RB0 = 0;
-[e = . . _PORTBbits 0 0 -> -> 0 `i `uc ]
-"207
-[; ;main.c: 207:         } else {
+[; ;main.c: 205:         }
 }
-[e $U 93  ]
 [e :U 92 ]
-{
+"206
+[; ;main.c: 206:         PORTBbits.RB6 = 0;
+[e = . . _PORTBbits 0 6 -> -> 0 `i `uc ]
 "208
-[; ;main.c: 208:             PORTBbits.RB0 = 1;
-[e = . . _PORTBbits 0 0 -> -> 1 `i `uc ]
+[; ;main.c: 208:         if (open == 1) {
+[e $ ! == _open -> 1 `i 93  ]
+{
 "209
-[; ;main.c: 209: }
+[; ;main.c: 209:             PORTBbits.RB0 = 0;
+[e = . . _PORTBbits 0 0 -> -> 0 `i `uc ]
+"210
+[; ;main.c: 210:         } else {
 }
+[e $U 94  ]
 [e :U 93 ]
-"213
-[; ;main.c: 213:     }
+{
+"211
+[; ;main.c: 211:             PORTBbits.RB0 = 1;
+[e = . . _PORTBbits 0 0 -> -> 1 `i `uc ]
+"212
+[; ;main.c: 212: }
+}
+[e :U 94 ]
+"216
+[; ;main.c: 216:     }
 }
 [e :U 84 ]
 [e $U 85  ]
 [e :U 86 ]
-"214
-[; ;main.c: 214: }
+"217
+[; ;main.c: 217: }
 [e :UE 83 ]
 }
