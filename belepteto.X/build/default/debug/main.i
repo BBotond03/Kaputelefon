@@ -1189,49 +1189,57 @@ extern __bank0 __bit __timeout;
 #pragma config LVP = OFF
 #pragma config CPD = OFF
 #pragma config CP = OFF
-# 26 "main.c"
-int pinPad[12];
-int index = 0;
-int outputValue;
+# 31 "main.c"
+int sensor_index = 0;
+int output_index = 0;
+int output_pinpad[7];
+int input_pinpad[7];
+int USER_INPUT[7];
 
-void beep() {
-    PORTBbits.RB1 = 1;
-    _delay((unsigned long)((100)*(20000000/4000.0)));
-    PORTBbits.RB1 = 0;
-    _delay((unsigned long)((100)*(20000000/4000.0)));
-}
-
-void __attribute__((picinterrupt(("")))) isr() {
-    if (TMR1IF) {
-        PORTBbits.RB0 = PORTAbits.RA1;
-        if(PORTAbits.RA1 = 1)
-            beep();
-        TMR1IF = 0;
-        TMR1 = 0;
-
-        pinPad[index] = PORTAbits.RA1;
-
-        index++;
-
-        if (index >= 12) {
-            outputValue = 0;
-            for (int i = 0; i < 12; i++) {
-                outputValue |= (pinPad[i] << i);
-            }
-            for (int i = 0; i < 12; i++) {
-                if(pinPad[i] == 1)
-                {
-                    PORTBbits.RB0 = !PORTBbits.RB0;
-                    _delay((unsigned long)((300)*(20000000/4000.0)));
-                    PORTBbits.RB0 = !PORTBbits.RB0;
-                }
-
-            }
-            index = 0;
-        }
+void delay_us(int time)
+{
+    for(int i =0; i< time; i++)
+    {
+        _delay((unsigned long)((1)*(20000000/4000000.0)));
     }
 }
 
+void beep(int duration_ms)
+{
+    int half_period_us = 1000000 / (2 * 6000);
+    int total_cycles = (duration_ms * 1000) / (2 * half_period_us);
+
+    for (int i = 0; i < total_cycles; i++) {
+        PORTBbits.RB1 = 1;
+        delay_us((int)half_period_us);
+        PORTBbits.RB1 = 0;
+        delay_us((int)half_period_us);
+    }
+}
+
+void cycleOutput(int list[], int size) {
+    int currentIndex = -1;
+
+    for (int i = 0; i < size; i++) {
+        if (list[i] == 1) {
+            currentIndex = i;
+            list[i] = 0;
+            break;
+        }
+    }
+
+    int nextIndex = (currentIndex + 1) % size;
+    list[nextIndex] = 1;
+}
+void decodeValue(int code[])
+{
+    for(int i =0; i<7; i++)
+    {
+        if(code[i] == 1)
+            beep(1000);
+    }
+}
+# 111 "main.c"
 void setup_timer1()
 {
     T1CONbits.TMR1CS = 0;
@@ -1252,10 +1260,25 @@ void initialize_pins() {
     TRISAbits.TRISA0 = 0;
     TRISAbits.TRISA1 = 1;
     TRISAbits.TRISA2 = 1;
+    TRISBbits.TRISB7 = 0;
+    TRISBbits.TRISB6 = 0;
     PORTAbits.RA3 = 1;
-    PORTBbits.RB2 = 1;
+    for(int i =0; i<7; i++)
+    {
+        if(i == 0)
+        {
+            output_pinpad[i] = 0;
+            input_pinpad[i] = 1;
 
-
+        }
+        else
+        {
+            output_pinpad[i] = 0;
+            input_pinpad[i] = 0;
+        }
+    }
+    INTCONbits.GIE = 1;
+    INTCONbits.PEIE = 1;
 
 }
 
@@ -1264,10 +1287,49 @@ int open;
 
 void main() {
     initialize_pins();
-
-
+    setup_timer1();
 
     PORTBbits.RB0 = 0;
+
     while (1) {
+
+        if (PORTAbits.RA2 == 0) {
+            beep(1000);
+            _delay((unsigned long)((50)*(20000000/4000.0)));
+
+        }
+        PORTBbits.RB6 = 1;
+        _delay((unsigned long)((50)*(20000000/4000.0)));
+
+        if (sensor_index < 2 * 7) {
+            if (sensor_index < 7) {
+                PORTBbits.RB2 = 0;
+                PORTBbits.RB7 = input_pinpad[sensor_index];
+                sensor_index++;
+                if(PORTBbits.RB7 == 0)
+                {
+                    beep();
+                }
+                if(PORTBbits.RB7 == 1)
+                {
+                    PORTBbits.RB0=!PORTBbits.RB0;
+                    _delay((unsigned long)((100)*(20000000/4000.0)));
+                }
+            } else {
+                PORTBbits.RB2 = 1;
+                PORTBbits.RB7 = input_pinpad[sensor_index - 7];
+                output_pinpad[sensor_index - 7] = PORTAbits.RA1;
+                sensor_index++;
+            }
+        } else {
+            sensor_index = 0;
+            decodeValue(output_pinpad);
+            cycleOutput(input_pinpad, 7);
+        }
+        PORTBbits.RB6 = 0;
+        _delay((unsigned long)((50)*(20000000/4000.0)));
+
+
+
     }
 }

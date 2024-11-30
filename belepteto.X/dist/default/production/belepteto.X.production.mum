@@ -1,7 +1,7 @@
 
 16F648A Memory Summary:
-    Program space        used   12Ah (   298) of  1000h words   (  7.3%)
-    Data space           used    2Eh (    46) of   100h bytes   ( 18.0%)
+    Program space        used   321h (   801) of  1000h words   ( 19.6%)
+    Data space           used    4Ch (    76) of   100h bytes   ( 29.7%)
     EEPROM space         used     0h (     0) of   100h bytes   (  0.0%)
     Configuration bits   used     1h (     1) of     1h word    (100.0%)
     ID Location space    used     0h (     0) of     4h bytes   (  0.0%)
