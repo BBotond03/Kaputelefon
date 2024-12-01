@@ -1189,11 +1189,11 @@ extern __bank0 __bit __timeout;
 #pragma config LVP = OFF
 #pragma config CPD = OFF
 #pragma config CP = OFF
-# 30 "main.c"
-int sensor_index = 0;
-int output_index = 0;
-int output_pinpad[7];
-int input_pinpad[7];
+# 32 "main.c"
+int sensorIndex = 0;
+int outputIndex = 0;
+int outputPinpad[7];
+int inputPinpad[7];
 int USER_INPUT[7];
 
 void initialize_pins() {
@@ -1212,14 +1212,14 @@ void initialize_pins() {
     {
         if(i == 0)
         {
-            output_pinpad[i] = 1;
-            input_pinpad[i] = 0;
+            outputPinpad[i] = 1;
+            inputPinpad[i] = 1;
 
         }
         else
         {
-            output_pinpad[i] = 1;
-            input_pinpad[i] = 1;
+            outputPinpad[i] = 1;
+            inputPinpad[i] = 0;
         }
     }
     INTCONbits.GIE = 1;
@@ -1250,13 +1250,13 @@ void beep(int duration_ms)
     }
 }
 
-void cycleOutput(int list[], int size) {
+void cycle_output(int list[], int size) {
     int currentIndex = -1;
 
     for (int i = 0; i < size; i++) {
-        if (list[i] == 0) {
+        if (list[i] == 1) {
             currentIndex = i;
-            list[i] = 1;
+            list[i] = 0;
             break;
         }
     }
@@ -1264,7 +1264,7 @@ void cycleOutput(int list[], int size) {
     int nextIndex = (currentIndex + 1) % size;
     list[nextIndex] = 1;
 }
-int decodeValue(int code[])
+int decode_value(int code[])
 {
     for(int i =0; i<7; i++)
     {
@@ -1277,63 +1277,45 @@ int decodeValue(int code[])
             return 0;
     }
 }
-# 159 "main.c"
 int open = 1;
 
 void main() {
     initialize_pins();
-
-    _delay((unsigned long)((10)*(20000000/4000.0)));
     PORTBbits.RB2 = 1;
-
     PORTBbits.RB0 = 0;
+    int itter = 0;
     while (1) {
-
         if (PORTAbits.RA2 == 0) {
             beep(1000);
-
             _delay((unsigned long)((50)*(20000000/4000.0)));
 
-
         }
-
+        PORTBbits.RB7 = 0;
+        for(int i = 0; i< 7; i++)
+        {
+            PORTBbits.RB6 = 1;
+            _delay((unsigned long)((1)*(20000000/4000.0)));
+            PORTBbits.RB6 = 0;
+        }
+        PORTBbits.RB7 = 1;
         PORTBbits.RB6 = 1;
-        if(output_index< 7)
-        {
-
-            if(sensor_index = 0)
-                PORTBbits.RB7 = 0;
-                sensor_index++;
-
-            if (sensor_index < 7) {
-                PORTBbits.RB7 = input_pinpad[sensor_index];
-                sensor_index++;
-
-            }
-           else
-            {
-                output_pinpad[output_index] = PORTAbits.RA1;
-                sensor_index = 0;
-                cycleOutput(output_pinpad, 7);
-                output_index++;
-
-            }
-        }
-
-        else
-        {
-            open = decodeValue(output_pinpad);
-            output_index = 0;
-        }
+        _delay((unsigned long)((1)*(20000000/4000.0)));
         PORTBbits.RB6 = 0;
+        PORTBbits.RB7 = 0;
+        for(int i = 0; i< 7; i++)
+        {
+            PORTBbits.RB6 = 1;
+            _delay((unsigned long)((1)*(20000000/4000.0)));
+            PORTBbits.RB6 = 0;
+        }
 
-        if (open == 1) {
-            PORTBbits.RB0 = 0;
-        } else {
-            PORTBbits.RB0 = 1;
-}
-
-
+        PORTBbits.RB7 = 1;
+        PORTBbits.RB6 = 1;
+        _delay((unsigned long)((1)*(20000000/4000.0)));
+        PORTBbits.RB6 = 0;
+                PORTBbits.RB2 = 0;
+        _delay((unsigned long)((1)*(20000000/4000.0)));
+        PORTBbits.RB2 = 1;
 
     }
 }

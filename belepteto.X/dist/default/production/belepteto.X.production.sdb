@@ -17,17 +17,21 @@
 [v ___eecpymem __eecpymem `(v  1 e 1 0 ]
 "39
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
-"36 C:\Kaputelefon\belepteto.X\main.c
+"38 C:\Kaputelefon\belepteto.X\main.c
 [v _initialize_pins initialize_pins `(v  1 e 1 0 ]
-"69
+"71
 [v _delay_us delay_us `(v  1 e 1 0 ]
-"77
+"79
 [v _beep beep `(v  1 e 1 0 ]
-"90
-[v _cycleOutput cycleOutput `(v  1 e 1 0 ]
-"104
-[v _decodeValue decodeValue `(i  1 e 2 0 ]
-"161
+"91
+[v _flash flash `(v  1 e 1 0 ]
+"112
+[v _decode_value decode_value `(v  1 e 1 0 ]
+"124
+[v _clock_SR clock_SR `(v  1 e 1 0 ]
+"130
+[v _push_output push_output `(v  1 e 1 0 ]
+"139
 [v _main main `(v  1 e 1 0 ]
 [s S65 . 1 `uc 1 RA0 1 0 :1:0 
 `uc 1 RA1 1 0 :1:1 
@@ -96,80 +100,72 @@
 "986
 [u S32 . 1 `S23 1 . 1 0 ]
 [v _TRISBbits TRISBbits `VES32  1 e 1 @134 ]
-"30 C:\Kaputelefon\belepteto.X\main.c
-[v _sensor_index sensor_index `i  1 e 2 0 ]
-"31
-[v _output_index output_index `i  1 e 2 0 ]
-"32
-[v _output_pinpad output_pinpad `[7]i  1 e 14 0 ]
-"33
-[v _input_pinpad input_pinpad `[7]i  1 e 14 0 ]
-"159
-[v _open open `i  1 e 2 0 ]
-"161
+"34 C:\Kaputelefon\belepteto.X\main.c
+[v _outputPinpad outputPinpad `[7]i  1 e 14 0 ]
+"35
+[v _inputPinpad inputPinpad `[7]i  1 e 14 0 ]
+"36
+[v _USER_INPUT USER_INPUT `[8]i  1 e 16 0 ]
+"139
 [v _main main `(v  1 e 1 0 ]
 {
-"214
+"160
+[v main@i_226 i `i  1 a 2 24 ]
+"152
+[v main@i i `i  1 a 2 20 ]
+"143
+[v main@itter itter `i  1 a 2 26 ]
+"144
+[v main@cycle cycle `i  1 a 2 22 ]
+"182
 } 0
-"36
+"130
+[v _push_output push_output `(v  1 e 1 0 ]
+{
+"135
+} 0
+"38
 [v _initialize_pins initialize_pins `(v  1 e 1 0 ]
 {
-"48
+"50
 [v initialize_pins@i i `i  1 a 2 1 ]
-"65
+"67
 } 0
-"104
-[v _decodeValue decodeValue `(i  1 e 2 0 ]
+"112
+[v _decode_value decode_value `(v  1 e 1 0 ]
 {
-[v decodeValue@code code `*.4i  1 p 1 0 ]
-"116
+"114
+[v decode_value@i i `i  1 a 2 14 ]
+"112
+[v decode_value@code code `*.4i  1 p 1 9 ]
+"123
 } 0
-"90
-[v _cycleOutput cycleOutput `(v  1 e 1 0 ]
-{
-"93
-[v cycleOutput@i i `i  1 a 2 4 ]
 "91
-[v cycleOutput@currentIndex currentIndex `i  1 a 2 2 ]
-"101
-[v cycleOutput@nextIndex nextIndex `i  1 a 2 0 ]
-"90
-[v cycleOutput@list list `*.4i  1 p 1 6 ]
-[v cycleOutput@size size `i  1 p 2 7 ]
-"103
-} 0
-"5 C:\Program Files\Microchip\xc8\v2.50\pic\sources\c99\common\awmod.c
-[v ___awmod __awmod `(i  1 e 2 0 ]
+[v _flash flash `(v  1 e 1 0 ]
 {
-"10
-[v ___awmod@sign sign `uc  1 a 1 5 ]
-[v ___awmod@counter counter `uc  1 a 1 4 ]
-"5
-[v ___awmod@divisor divisor `i  1 p 2 0 ]
-[v ___awmod@dividend dividend `i  1 p 2 2 ]
-"34
+"96
 } 0
-"77 C:\Kaputelefon\belepteto.X\main.c
+"79
 [v _beep beep `(v  1 e 1 0 ]
 {
-"82
+"84
 [v beep@i i `i  1 a 2 5 ]
-"79
+"81
 [v beep@half_period_us half_period_us `i  1 a 2 7 ]
-"80
+"82
 [v beep@total_cycles total_cycles `i  1 a 2 3 ]
-"77
+"79
 [v beep@duration_ms duration_ms `i  1 p 2 0 ]
-"88
+"90
 } 0
-"69
+"71
 [v _delay_us delay_us `(v  1 e 1 0 ]
 {
-"71
+"73
 [v delay_us@i i `i  1 a 2 3 ]
-"69
+"71
 [v delay_us@time time `i  1 p 2 0 ]
-"75
+"77
 } 0
 "15 C:\Program Files\Microchip\xc8\v2.50\pic\sources\c99\common\Umul16.c
 [v ___wmul __wmul `(ui  1 e 2 0 ]
@@ -193,4 +189,9 @@
 [v ___awdiv@divisor divisor `i  1 p 2 6 ]
 [v ___awdiv@dividend dividend `i  1 p 2 8 ]
 "41
+} 0
+"124 C:\Kaputelefon\belepteto.X\main.c
+[v _clock_SR clock_SR `(v  1 e 1 0 ]
+{
+"129
 } 0

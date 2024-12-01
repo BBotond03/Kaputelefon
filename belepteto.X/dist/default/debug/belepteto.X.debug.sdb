@@ -17,17 +17,13 @@
 [v ___eecpymem __eecpymem `(v  1 e 1 0 ]
 "39
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
-"36 C:\Kaputelefon\belepteto.X\main.c
+"38 C:\Kaputelefon\belepteto.X\main.c
 [v _initialize_pins initialize_pins `(v  1 e 1 0 ]
-"69
+"71
 [v _delay_us delay_us `(v  1 e 1 0 ]
-"77
+"79
 [v _beep beep `(v  1 e 1 0 ]
-"90
-[v _cycleOutput cycleOutput `(v  1 e 1 0 ]
-"104
-[v _decodeValue decodeValue `(i  1 e 2 0 ]
-"161
+"121
 [v _main main `(v  1 e 1 0 ]
 [s S65 . 1 `uc 1 RA0 1 0 :1:0 
 `uc 1 RA1 1 0 :1:1 
@@ -96,80 +92,47 @@
 "986
 [u S32 . 1 `S23 1 . 1 0 ]
 [v _TRISBbits TRISBbits `VES32  1 e 1 @134 ]
-"30 C:\Kaputelefon\belepteto.X\main.c
-[v _sensor_index sensor_index `i  1 e 2 0 ]
-"31
-[v _output_index output_index `i  1 e 2 0 ]
-"32
-[v _output_pinpad output_pinpad `[7]i  1 e 14 0 ]
-"33
-[v _input_pinpad input_pinpad `[7]i  1 e 14 0 ]
-"159
-[v _open open `i  1 e 2 0 ]
-"161
+"34 C:\Kaputelefon\belepteto.X\main.c
+[v _outputPinpad outputPinpad `[7]i  1 e 14 0 ]
+"35
+[v _inputPinpad inputPinpad `[7]i  1 e 14 0 ]
+"121
 [v _main main `(v  1 e 1 0 ]
 {
-"217
+"144
+[v main@i_220 i `i  1 a 2 15 ]
+"133
+[v main@i i `i  1 a 2 13 ]
+"160
 } 0
-"36
+"38
 [v _initialize_pins initialize_pins `(v  1 e 1 0 ]
 {
-"48
+"50
 [v initialize_pins@i i `i  1 a 2 1 ]
-"65
+"67
 } 0
-"104
-[v _decodeValue decodeValue `(i  1 e 2 0 ]
-{
-[v decodeValue@code code `*.4i  1 p 1 0 ]
-"116
-} 0
-"90
-[v _cycleOutput cycleOutput `(v  1 e 1 0 ]
-{
-"93
-[v cycleOutput@i i `i  1 a 2 4 ]
-"91
-[v cycleOutput@currentIndex currentIndex `i  1 a 2 2 ]
-"101
-[v cycleOutput@nextIndex nextIndex `i  1 a 2 0 ]
-"90
-[v cycleOutput@list list `*.4i  1 p 1 6 ]
-[v cycleOutput@size size `i  1 p 2 7 ]
-"103
-} 0
-"5 C:\Program Files\Microchip\xc8\v2.50\pic\sources\c99\common\awmod.c
-[v ___awmod __awmod `(i  1 e 2 0 ]
-{
-"10
-[v ___awmod@sign sign `uc  1 a 1 5 ]
-[v ___awmod@counter counter `uc  1 a 1 4 ]
-"5
-[v ___awmod@divisor divisor `i  1 p 2 0 ]
-[v ___awmod@dividend dividend `i  1 p 2 2 ]
-"34
-} 0
-"77 C:\Kaputelefon\belepteto.X\main.c
+"79
 [v _beep beep `(v  1 e 1 0 ]
 {
-"82
+"84
 [v beep@i i `i  1 a 2 6 ]
-"79
+"81
 [v beep@half_period_us half_period_us `i  1 a 2 8 ]
-"80
+"82
 [v beep@total_cycles total_cycles `i  1 a 2 4 ]
-"77
+"79
 [v beep@duration_ms duration_ms `i  1 p 2 10 ]
-"88
+"90
 } 0
-"69
+"71
 [v _delay_us delay_us `(v  1 e 1 0 ]
 {
-"71
+"73
 [v delay_us@i i `i  1 a 2 3 ]
-"69
+"71
 [v delay_us@time time `i  1 p 2 0 ]
-"75
+"77
 } 0
 "15 C:\Program Files\Microchip\xc8\v2.50\pic\sources\c99\common\Umul16.c
 [v ___wmul __wmul `(ui  1 e 2 0 ]
