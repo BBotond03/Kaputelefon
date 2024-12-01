@@ -1194,7 +1194,7 @@ int sensorIndex = 0;
 int outputIndex = 0;
 int outputPinpad[7];
 int inputPinpad[7];
-int USER_INPUT[7];
+int USER_INPUT[8];
 
 void initialize_pins() {
     CMCON = 0x07;
@@ -1222,8 +1222,8 @@ void initialize_pins() {
             inputPinpad[i] = 0;
         }
     }
-    INTCONbits.GIE = 1;
-    INTCONbits.PEIE = 1;
+
+
 
 }
 
@@ -1249,6 +1249,12 @@ void beep(int duration_ms)
         delay_us((int)half_period_us);
     }
 }
+void flash()
+{
+    PORTBbits.RB0 = !PORTBbits.RB0;
+    _delay((unsigned long)((50)*(20000000/4000.0)));
+    PORTBbits.RB0 = !PORTBbits.RB0;
+}
 
 void cycle_output(int list[], int size) {
     int currentIndex = -1;
@@ -1264,19 +1270,31 @@ void cycle_output(int list[], int size) {
     int nextIndex = (currentIndex + 1) % size;
     list[nextIndex] = 1;
 }
-int decode_value(int code[])
+void decode_value(int code[])
 {
     for(int i =0; i<7; i++)
     {
         if(code[i] == 1)
         {
-            return 1;
-
+            beep(500);
         }
         else
-            return 0;
+            flash();
     }
 }
+void clock_SR()
+{
+    PORTBbits.RB6 = 1;
+    _delay((unsigned long)((10)*(20000000/4000000.0)));
+    PORTBbits.RB6 = 0;
+}
+void push_output()
+{
+    PORTBbits.RB2 = 0;
+    _delay((unsigned long)((10)*(20000000/4000000.0)));
+    PORTBbits.RB2 = 1;
+}
+
 int open = 1;
 
 void main() {
@@ -1284,38 +1302,48 @@ void main() {
     PORTBbits.RB2 = 1;
     PORTBbits.RB0 = 0;
     int itter = 0;
+    int cycle = 0;
     while (1) {
         if (PORTAbits.RA2 == 0) {
             beep(1000);
             _delay((unsigned long)((50)*(20000000/4000.0)));
+        }
 
-        }
         PORTBbits.RB7 = 0;
-        for(int i = 0; i< 7; i++)
-        {
-            PORTBbits.RB6 = 1;
-            _delay((unsigned long)((1)*(20000000/4000.0)));
-            PORTBbits.RB6 = 0;
-        }
-        PORTBbits.RB7 = 1;
-        PORTBbits.RB6 = 1;
-        _delay((unsigned long)((1)*(20000000/4000.0)));
-        PORTBbits.RB6 = 0;
-        PORTBbits.RB7 = 0;
-        for(int i = 0; i< 7; i++)
-        {
-            PORTBbits.RB6 = 1;
-            _delay((unsigned long)((1)*(20000000/4000.0)));
-            PORTBbits.RB6 = 0;
+
+        for (int i = 0; i < (7 - itter); i++) {
+            clock_SR();
         }
 
         PORTBbits.RB7 = 1;
-        PORTBbits.RB6 = 1;
-        _delay((unsigned long)((1)*(20000000/4000.0)));
-        PORTBbits.RB6 = 0;
-                PORTBbits.RB2 = 0;
-        _delay((unsigned long)((1)*(20000000/4000.0)));
-        PORTBbits.RB2 = 1;
+        clock_SR();
+
+        PORTBbits.RB7 = 0;
+        for (int i = (7 - itter); i < 7; i++) {
+            clock_SR();
+        }
+        for (int i = 0; i < (7 - itter); i++) {
+            clock_SR();
+        }
+
+        PORTBbits.RB7 = 1;
+        clock_SR();
+
+        PORTBbits.RB7 = 0;
+        for (int i = (7 - itter); i < 7; i++) {
+            clock_SR();
+        }
+
+        push_output();
+        USER_INPUT[itter] = PORTAbits.RA1;
+        itter++;
+
+        if (itter == 8) {
+            itter = 0;
+            decode_value(USER_INPUT);
+
+        }
+
 
     }
 }

@@ -1222,8 +1222,8 @@ void initialize_pins() {
             inputPinpad[i] = 0;
         }
     }
-    INTCONbits.GIE = 1;
-    INTCONbits.PEIE = 1;
+
+
 
 }
 
@@ -1309,8 +1309,9 @@ void main() {
             _delay((unsigned long)((50)*(20000000/4000.0)));
         }
 
-        PORTBbits.RB7 = 0;
-        for (int i = 0; i < (8 - itter); i++) {
+        int PORTBbits.RB7 = 0;
+
+        for (int i = 0; i < (7 - itter); i++) {
             clock_SR();
         }
 
@@ -1318,11 +1319,20 @@ void main() {
         clock_SR();
 
         PORTBbits.RB7 = 0;
-        for (int i = (7 - itter); i < 8; i++) {
+        for (int i = (7 - itter); i < 7; i++) {
             clock_SR();
         }
+        for (int i = 0; i < (7 - itter); i++) {
+            clock_SR();
+        }
+
         PORTBbits.RB7 = 1;
         clock_SR();
+
+        PORTBbits.RB7 = 0;
+        for (int i = (7 - itter); i < 7; i++) {
+            clock_SR();
+        }
 
         push_output();
         USER_INPUT[itter] = PORTAbits.RA1;
@@ -1330,12 +1340,8 @@ void main() {
 
         if (itter == 8) {
             itter = 0;
-            cycle++;
-            if (cycle == 2)
-            {
-                cycle = 0;
-                decode_value(USER_INPUT);
-            }
+            decode_value(USER_INPUT);
+
         }
 
 

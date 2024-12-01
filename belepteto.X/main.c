@@ -61,8 +61,8 @@ void initialize_pins() {
             inputPinpad[i] = 0;  
         }
     }   
-    INTCONbits.GIE = 1;  
-    INTCONbits.PEIE = 1;
+    //INTCONbits.GIE = 1;  
+    //INTCONbits.PEIE = 1;
 
 }
 
@@ -123,7 +123,7 @@ void decode_value(int code[])
 }
 void clock_SR()
 {
-    SRCLK = 1;
+    SRCLK = 1;  
     __delay_us(10);
     SRCLK = 0;
 }
@@ -149,7 +149,8 @@ void main() {
         }
 
         DATA = 0;
-        for (int i = 0; i < (8 - itter); i++) {
+
+        for (int i = 0; i < (7 - itter); i++) {
             clock_SR();
         }
 
@@ -157,24 +158,29 @@ void main() {
         clock_SR();
 
         DATA = 0;
-        for (int i = (7 - itter); i < 8; i++) {
+        for (int i = (7 - itter); i < 7; i++) {
             clock_SR();
         }
+        for (int i = 0; i < (7 - itter); i++) {
+            clock_SR();
+        }
+
         DATA = 1;
         clock_SR();
-        
+
+        DATA = 0;
+        for (int i = (7 - itter); i < 7; i++) {
+            clock_SR();
+        }
+
         push_output();
         USER_INPUT[itter] = OUTPUT;
         itter++;
 
         if (itter == 8) {
             itter = 0;
-            cycle++;
-            if (cycle == 2)
-            {
-                cycle = 0;
-                decode_value(USER_INPUT);
-            }
+            decode_value(USER_INPUT);
+
         }
         
         

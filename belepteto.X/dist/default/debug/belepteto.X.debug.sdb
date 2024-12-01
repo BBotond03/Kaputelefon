@@ -23,7 +23,15 @@
 [v _delay_us delay_us `(v  1 e 1 0 ]
 "79
 [v _beep beep `(v  1 e 1 0 ]
-"121
+"91
+[v _flash flash `(v  1 e 1 0 ]
+"112
+[v _decode_value decode_value `(v  1 e 1 0 ]
+"124
+[v _clock_SR clock_SR `(v  1 e 1 0 ]
+"130
+[v _push_output push_output `(v  1 e 1 0 ]
+"139
 [v _main main `(v  1 e 1 0 ]
 [s S65 . 1 `uc 1 RA0 1 0 :1:0 
 `uc 1 RA1 1 0 :1:1 
@@ -37,7 +45,7 @@
 "183 C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC16Fxxx_DFP/1.6.156/xc8\pic\include\proc\pic16f648a.h
 [u S74 . 1 `S65 1 . 1 0 ]
 [v _PORTAbits PORTAbits `VES74  1 e 1 @5 ]
-[s S124 . 1 `uc 1 RB0 1 0 :1:0 
+[s S92 . 1 `uc 1 RB0 1 0 :1:0 
 `uc 1 RB1 1 0 :1:1 
 `uc 1 RB2 1 0 :1:2 
 `uc 1 RB3 1 0 :1:3 
@@ -47,25 +55,8 @@
 `uc 1 RB7 1 0 :1:7 
 ]
 "245
-[u S133 . 1 `S124 1 . 1 0 ]
-[v _PORTBbits PORTBbits `VES133  1 e 1 @6 ]
-[s S86 . 1 `uc 1 RBIF 1 0 :1:0 
-`uc 1 INTF 1 0 :1:1 
-`uc 1 T0IF 1 0 :1:2 
-`uc 1 RBIE 1 0 :1:3 
-`uc 1 INTE 1 0 :1:4 
-`uc 1 T0IE 1 0 :1:5 
-`uc 1 PEIE 1 0 :1:6 
-`uc 1 GIE 1 0 :1:7 
-]
-"333
-[s S95 . 1 `uc 1 . 1 0 :2:0 
-`uc 1 TMR0IF 1 0 :1:2 
-`uc 1 . 1 0 :2:3 
-`uc 1 TMR0IE 1 0 :1:5 
-]
-[u S100 . 1 `S86 1 . 1 0 `S95 1 . 1 0 ]
-[v _INTCONbits INTCONbits `VES100  1 e 1 @11 ]
+[u S101 . 1 `S92 1 . 1 0 ]
+[v _PORTBbits PORTBbits `VES101  1 e 1 @6 ]
 "767
 [v _CMCON CMCON `VEuc  1 e 1 @31 ]
 [s S44 . 1 `uc 1 TRISA0 1 0 :1:0 
@@ -96,14 +87,27 @@
 [v _outputPinpad outputPinpad `[7]i  1 e 14 0 ]
 "35
 [v _inputPinpad inputPinpad `[7]i  1 e 14 0 ]
-"121
+"36
+[v _USER_INPUT USER_INPUT `[8]i  1 e 16 0 ]
+"139
 [v _main main `(v  1 e 1 0 ]
 {
-"144
-[v main@i_220 i `i  1 a 2 15 ]
-"133
-[v main@i i `i  1 a 2 13 ]
-"160
+"172
+[v main@i_188 i `i  1 a 2 27 ]
+"164
+[v main@i_187 i `i  1 a 2 23 ]
+"161
+[v main@i_186 i `i  1 a 2 25 ]
+"153
+[v main@i i `i  1 a 2 21 ]
+"143
+[v main@itter itter `i  1 a 2 29 ]
+"188
+} 0
+"130
+[v _push_output push_output `(v  1 e 1 0 ]
+{
+"135
 } 0
 "38
 [v _initialize_pins initialize_pins `(v  1 e 1 0 ]
@@ -111,6 +115,20 @@
 "50
 [v initialize_pins@i i `i  1 a 2 1 ]
 "67
+} 0
+"112
+[v _decode_value decode_value `(v  1 e 1 0 ]
+{
+"114
+[v decode_value@i i `i  1 a 2 15 ]
+"112
+[v decode_value@code code `*.4i  1 p 1 10 ]
+"123
+} 0
+"91
+[v _flash flash `(v  1 e 1 0 ]
+{
+"96
 } 0
 "79
 [v _beep beep `(v  1 e 1 0 ]
@@ -156,4 +174,9 @@
 [v ___awdiv@divisor divisor `i  1 p 2 6 ]
 [v ___awdiv@dividend dividend `i  1 p 2 8 ]
 "41
+} 0
+"124 C:\Kaputelefon\belepteto.X\main.c
+[v _clock_SR clock_SR `(v  1 e 1 0 ]
+{
+"129
 } 0

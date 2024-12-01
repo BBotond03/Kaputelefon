@@ -6,10 +6,10 @@ Linker command line:
   --edf=C:\Program Files\Microchip\xc8\v2.50\pic\dat\20240725155939_en.msgs \
   -cn -h+dist/default/production\belepteto.X.production.sym \
   --cmf=dist/default/production\belepteto.X.production.cmf -z -Q16F648A \
-  -oC:\Users\biebe\AppData\Local\Temp\xcAsbno.\driver_tmp_3.o \
+  -oC:\Users\biebe\AppData\Local\Temp\xcAsf1s.\driver_tmp_3.o \
   --defsym=__MPLAB_BUILD=1 --fixupoverflow=error \
   -Mdist/default/production/belepteto.X.production.map \
-  --md=C:\Users\biebe\AppData\Local\Temp\xcAsbno.\driver_tmp_0.dat -E1 \
+  --md=C:\Users\biebe\AppData\Local\Temp\xcAsf1s.\driver_tmp_0.dat -E1 \
   -ver=XC8 Compiler --acfsm=1493 -ACODE=00h-07FFhx2 -ASTRCODE=00h-0FFFh \
   -ASTRING=00h-0FFhx16 -ACONST=00h-0FFhx16 -AENTRY=00h-0FFhx16 \
   -ACOMMON=070h-07Fh -ABANK0=020h-06Fh -ABANK1=0A0h-0EFh \
@@ -20,7 +20,7 @@ Linker command line:
   -peeprom_data=EEDATA -DEEDATA=2 -DCODE=2 -DSTRCODE=2 -DSTRING=2 -DCONST=2 \
   -DENTRY=2 -preset_vec=00h,intentry,sivt,init,end_init -ppowerup=CODE \
   -pcinit=CODE -pfunctab=ENTRY -k \
-  C:\Users\biebe\AppData\Local\Temp\xcAsbno.\driver_tmp_12.o \
+  C:\Users\biebe\AppData\Local\Temp\xcAsf1s.\driver_tmp_12.o \
   dist/default/production\belepteto.X.production.o 
 
 Object code version is 3.11
@@ -30,45 +30,45 @@ Machine type is 16F648A
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\biebe\AppData\Local\Temp\xcAsbno.\driver_tmp_12.o
+C:\Users\biebe\AppData\Local\Temp\xcAsf1s.\driver_tmp_12.o
                 end_init                              0        0        2        0       0
                 config                             2007     2007        1        0       4
 dist/default/production\belepteto.X.production.o
                 cinit                               7EE      7EE       12      FDC       0
                 config                             2007     2007        1        0       4
-                text9                               56A      56A        C      AD4       0
-                text8                               6D0      6D0       63      DA0       0
-                text7                               59D      59D       25      B3A       0
-                text6                               582      582       1B      B04       0
-                text5                               628      628       50      C50       0
-                text4                               5C2      5C2       2C      B84       0
-                text3                               5EE      5EE       3A      BDC       0
-                text2                               678      678       58      CF0       0
-                text1                               576      576        C      AEC       0
-                maintext                            733      733       BB      E66       0
+                text9                               56C      56C        C      AD8       0
+                text8                               6D2      6D2       63      DA4       0
+                text7                               59F      59F       25      B3E       0
+                text6                               584      584       1B      B08       0
+                text5                               62A      62A       50      C54       0
+                text4                               5C4      5C4       2C      B88       0
+                text3                               5F0      5F0       3A      BE0       0
+                text2                               67A      67A       58      CF4       0
+                text1                               578      578        C      AF0       0
+                maintext                            735      735       B9      E6A       0
                 cstackBANK0                          50       50       1C       20       1
                 cstackCOMMON                         70       70        E       70       1
-                clrtext                             562      562        8      AC4       0
+                clrtext                             564      564        8      AC8       0
                 dataBANK0                            6C       6C        2       20       1
                 bssBANK0                             20       20       30       20       1
-                idataBANK0                          560      560        2      AC0       0
+                idataBANK0                          562      562        2      AC4       0
 
 TOTAL           Name                               Link     Load   Length     Space
         CLASS   CODE           
                 end_init                              0        0        2         0
                 cinit                               7EE      7EE       12         0
-                text9                               56A      56A        C         0
-                text8                               6D0      6D0       63         0
-                text7                               59D      59D       25         0
-                text6                               582      582       1B         0
-                text5                               628      628       50         0
-                text4                               5C2      5C2       2C         0
-                text3                               5EE      5EE       3A         0
-                text2                               678      678       58         0
-                text1                               576      576        C         0
-                maintext                            733      733       BB         0
-                clrtext                             562      562        8         0
-                idataBANK0                          560      560        2         0
+                text9                               56C      56C        C         0
+                text8                               6D2      6D2       63         0
+                text7                               59F      59F       25         0
+                text6                               584      584       1B         0
+                text5                               62A      62A       50         0
+                text4                               5C4      5C4       2C         0
+                text3                               5F0      5F0       3A         0
+                text2                               67A      67A       58         0
+                text1                               578      578        C         0
+                maintext                            735      735       B9         0
+                clrtext                             564      564        8         0
+                idataBANK0                          562      562        2         0
 
         CLASS   STRCODE        
 
@@ -123,18 +123,18 @@ SEGMENTS        Name                           Load    Length   Top    Selector 
                 reset_vec                      000000  000002  000002         0       0  CODE        2
                 bssBANK0                       000020  00004E  00006E        20       1  BANK0       1
                 cstackCOMMON                   000070  00000E  00007E        70       1  COMMON      1
-                idataBANK0                     000560  000002  000562       AC0       0  CODE        2
-                clrtext                        000562  000008  00056A       AC4       0  CODE        2
-                text9                          00056A  00000C  000576       AD4       0  CODE        2
-                text1                          000576  00000C  000582       AEC       0  CODE        2
-                text6                          000582  00001B  00059D       B04       0  CODE        2
-                text7                          00059D  000025  0005C2       B3A       0  CODE        2
-                text4                          0005C2  00002C  0005EE       B84       0  CODE        2
-                text3                          0005EE  00003A  000628       BDC       0  CODE        2
-                text5                          000628  000050  000678       C50       0  CODE        2
-                text2                          000678  000058  0006D0       CF0       0  CODE        2
-                text8                          0006D0  000063  000733       DA0       0  CODE        2
-                maintext                       000733  0000BB  0007EE       E66       0  CODE        2
+                idataBANK0                     000562  000002  000564       AC4       0  CODE        2
+                clrtext                        000564  000008  00056C       AC8       0  CODE        2
+                text9                          00056C  00000C  000578       AD8       0  CODE        2
+                text1                          000578  00000C  000584       AF0       0  CODE        2
+                text6                          000584  00001B  00059F       B08       0  CODE        2
+                text7                          00059F  000025  0005C4       B3E       0  CODE        2
+                text4                          0005C4  00002C  0005F0       B88       0  CODE        2
+                text3                          0005F0  00003A  00062A       BE0       0  CODE        2
+                text5                          00062A  000050  00067A       C54       0  CODE        2
+                text2                          00067A  000058  0006D2       CF4       0  CODE        2
+                text8                          0006D2  000063  000735       DA4       0  CODE        2
+                maintext                       000735  0000B9  0007EE       E6A       0  CODE        2
                 cinit                          0007EE  000012  000800       FDC       0  CODE        2
 
 
@@ -144,12 +144,12 @@ UNUSED ADDRESS RANGES
         BANK0            006E-006F              2           1
         BANK1            00A0-00EF             50           1
         BANK2            0120-016F             50           1
-        CODE             0002-055F            55E           2
+        CODE             0002-0561            560           2
                          0800-0FFF            800
-        CONST            0002-055F            100           2
+        CONST            0002-0561            100           2
                          0800-0FFF            100
         EEDATA           2100-21FF            100           2
-        ENTRY            0002-055F            100           2
+        ENTRY            0002-0561            100           2
                          0800-0FFF            100
         IDLOC            2000-2003              4           2
         RAM              006E-006F              2           1
@@ -159,9 +159,9 @@ UNUSED ADDRESS RANGES
         SFR1             0080-009F             20           1
         SFR2             0100-011F             20           1
         SFR3             0180-01EF             70           1
-        STRCODE          0002-055F            55E           2
+        STRCODE          0002-0561            560           2
                          0800-0FFF            800
-        STRING           0002-055F            100           2
+        STRING           0002-0561            100           2
                          0800-0FFF            100
 
                                   Symbol Table
@@ -256,7 +256,7 @@ __Ltext                  text         0000
 __S0                     (abs)        0800
 __S1                     (abs)        007E
 __S3                     (abs)        0000
-___awdiv                 text8        06D0
+___awdiv                 text8        06D2
 ___awdiv@counter         cstackCOMMON 007A
 ___awdiv@dividend        cstackCOMMON 0078
 ___awdiv@divisor         cstackCOMMON 0076
@@ -273,53 +273,53 @@ ___stack_hi              stack        0000
 ___stack_lo              stack        0000
 ___stackhi               (abs)        0000
 ___stacklo               (abs)        0000
-___wmul                  text7        059D
+___wmul                  text7        059F
 ___wmul@multiplicand     cstackCOMMON 0072
 ___wmul@multiplier       cstackCOMMON 0070
 ___wmul@product          cstackCOMMON 0074
-__end_of___awdiv         text8        0733
-__end_of___wmul          text7        05C2
+__end_of___awdiv         text8        0735
+__end_of___wmul          text7        05C4
 __end_of__initialization cinit        07FD
-__end_of_beep            text5        0678
-__end_of_clock_SR        text9        0576
-__end_of_decode_value    text3        0628
-__end_of_delay_us        text6        059D
-__end_of_flash           text4        05EE
-__end_of_initialize_pins text2        06D0
+__end_of_beep            text5        067A
+__end_of_clock_SR        text9        0578
+__end_of_decode_value    text3        062A
+__end_of_delay_us        text6        059F
+__end_of_flash           text4        05F0
+__end_of_initialize_pins text2        06D2
 __end_of_main            maintext     07EE
-__end_of_push_output     text1        0582
+__end_of_push_output     text1        0584
 __initialization         cinit        07EE
 __pbssBANK0              bssBANK0     0020
 __pcstackBANK0           cstackBANK0  0050
 __pcstackCOMMON          cstackCOMMON 0070
 __pdataBANK0             dataBANK0    006C
-__pidataBANK0            idataBANK0   0560
-__pmaintext              maintext     0733
-__ptext1                 text1        0576
-__ptext2                 text2        0678
-__ptext3                 text3        05EE
-__ptext4                 text4        05C2
-__ptext5                 text5        0628
-__ptext6                 text6        0582
-__ptext7                 text7        059D
-__ptext8                 text8        06D0
-__ptext9                 text9        056A
-_beep                    text5        0628
-_clock_SR                text9        056A
-_decode_value            text3        05EE
-_delay_us                text6        0582
-_flash                   text4        05C2
-_initialize_pins         text2        0678
+__pidataBANK0            idataBANK0   0562
+__pmaintext              maintext     0735
+__ptext1                 text1        0578
+__ptext2                 text2        067A
+__ptext3                 text3        05F0
+__ptext4                 text4        05C4
+__ptext5                 text5        062A
+__ptext6                 text6        0584
+__ptext7                 text7        059F
+__ptext8                 text8        06D2
+__ptext9                 text9        056C
+_beep                    text5        062A
+_clock_SR                text9        056C
+_decode_value            text3        05F0
+_delay_us                text6        0584
+_flash                   text4        05C4
+_initialize_pins         text2        067A
 _inputPinpad             bssBANK0     0020
-_main                    maintext     0733
+_main                    maintext     0735
 _outputPinpad            bssBANK0     002E
-_push_output             text1        0576
+_push_output             text1        0578
 beep@duration_ms         cstackBANK0  0050
 beep@half_period_us      cstackBANK0  0057
 beep@i                   cstackBANK0  0055
 beep@total_cycles        cstackBANK0  0053
 btemp                    (abs)        007E
-clear_ram0               clrtext      0562
+clear_ram0               clrtext      0564
 decode_value@code        cstackBANK0  0059
 decode_value@i           cstackBANK0  005E
 delay_us@i               cstackCOMMON 0073
@@ -346,7 +346,7 @@ MODULE INFORMATION
 
 Module		Function		Class		Link	Load	Size
 C:\Program Files\Microchip\xc8\v2.50\pic\sources\c99\common\Umul16.c
-		___wmul        		CODE           	059D	0000	37
+		___wmul        		CODE           	059F	0000	37
 
 C:\Program Files\Microchip\xc8\v2.50\pic\sources\c99\common\Umul16.c estimated size: 37
 
@@ -356,19 +356,19 @@ shared
 shared estimated size: 15
 
 C:\Program Files\Microchip\xc8\v2.50\pic\sources\c99\common\awdiv.c
-		___awdiv       		CODE           	06D0	0000	99
+		___awdiv       		CODE           	06D2	0000	99
 
 C:\Program Files\Microchip\xc8\v2.50\pic\sources\c99\common\awdiv.c estimated size: 99
 
 main.c
-		_beep          		CODE           	0628	0000	80
-		_delay_us      		CODE           	0582	0000	27
-		_main          		CODE           	0733	0000	187
-		_initialize_pins		CODE           	0678	0000	88
-		_flash         		CODE           	05C2	0000	44
-		_decode_value  		CODE           	05EE	0000	58
-		_push_output   		CODE           	0576	0000	12
-		_clock_SR      		CODE           	056A	0000	12
+		_beep          		CODE           	062A	0000	80
+		_delay_us      		CODE           	0584	0000	27
+		_main          		CODE           	0735	0000	185
+		_initialize_pins		CODE           	067A	0000	88
+		_flash         		CODE           	05C4	0000	44
+		_decode_value  		CODE           	05F0	0000	58
+		_push_output   		CODE           	0578	0000	12
+		_clock_SR      		CODE           	056C	0000	12
 
-main.c estimated size: 508
+main.c estimated size: 506
 
